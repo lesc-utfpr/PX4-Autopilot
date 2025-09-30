@@ -1,3 +1,5 @@
+uint32 MESSAGE_VERSION = 0
+
 uint64 timestamp			# time since system start (microseconds)
 
 uint8 RC_INPUT_SOURCE_UNKNOWN = 0
