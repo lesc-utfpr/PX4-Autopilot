@@ -17,10 +17,13 @@ VALID_FIELDS = { #Note, also have to add the message types as those can be field
     'uint32'
 }
 
-ALLOWED_UNITS = set(["m", "m/s", "m/s^2", "rad", "rad/s", "rpm" ,"V", "A", "mA", "mAh", "W", "dBm", "s", "ms", "us", "Ohm", "MB", "Kb/s", "degC","-"])
+ALLOWED_UNITS = set(["m", "m/s", "m/s^2", "rad", "rad/s", "rpm" ,"V", "A", "mA", "mAh", "W", "dBm", "s", "ms", "us", "Ohm", "MB", "Kb/s", "degC","Pa","-"])
 invalid_units = set()
 ALLOWED_FRAMES = set(["NED","Body"])
 ALLOWED_INVALID_VALUES = set(["NaN"])
+ALLOWED_CONSTANTS_NOT_IN_ENUM = set(["ORB_QUEUE_LENGTH","MESSAGE_VERSION"])
+
+
 
 class Error:
     def __init__(self, type, message, linenumber=None, issueString = None, field = None):
@@ -468,7 +471,7 @@ class UORBMessage:
             if unassignedEnumValues > 0:
                 #print(f"Debug: WARNING unassignedEnumValues: {unassignedEnumValues}")
                 for enumValueName, enumValue in self.enumValues.items():
-                    if enumValueName == "MESSAGE_VERSION": # Ignore constants
+                    if enumValueName in ALLOWED_CONSTANTS_NOT_IN_ENUM: # Ignore constants
                         pass
                     else:
                         error = Error("constant_not_in_assigned_enum", self.filename, enumValue.line_number, enumValueName)
