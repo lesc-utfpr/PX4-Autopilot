@@ -78,7 +78,7 @@ Please continue reading for [upgrade instructions](#upgrade-guide).
 
 ### RC
 
-- Parse ELRS Status and Link Statistics TX messages in the CRSF parser.
+- Parse ELRS Status and Link Statistics TX messages in the CRSF parser. ([PX4-Autopilot#25693: [crsf] Add support for link statistics message](https://github.com/PX4/PX4-Autopilot/pull/25693)).
 
 ### Multi-Rotor
 
