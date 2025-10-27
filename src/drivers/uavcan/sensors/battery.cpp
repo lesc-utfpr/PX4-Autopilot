@@ -94,11 +94,6 @@ UavcanBatteryBridge::battery_sub_cb(const uavcan::ReceivedDataStructure<uavcan::
 {
 	uint8_t instance = 0;
 
-	for (instance = 0; instance < battery_status_s::MAX_INSTANCES; instance++) {
-		if (_battery_status[instance].id == msg.getSrcNodeID().get() || _battery_status[instance].id == 0) {
-			break;
-		}
-	}
 
 	if (instance >= battery_status_s::MAX_INSTANCES
 	    || _batt_update_mod[instance] == BatteryDataType::CBAT) {
