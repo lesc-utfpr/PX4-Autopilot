@@ -86,6 +86,7 @@ px4_add_romfs_files(
 
 	6011_gazebo-classic_typhoon_h480
 	6011_gazebo-classic_typhoon_h480.post
+	6969_gz_piazinho
 
 	8011_gz_omnicopter
 
