@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# board specific extras init
+#------------------------------------------------------------------------------
+
+# Enable onboard AT7456E OSD chip
+#at7456e start -s
