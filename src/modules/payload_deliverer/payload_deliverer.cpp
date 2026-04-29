@@ -103,6 +103,49 @@ void PayloadDeliverer::Run()
 		parameter_update();
 	}
 
+	if (_payload_sub.updated()) {
+		payload_s payload_msg;
+		if (_payload_sub.copy(&payload_msg)) {
+			// Check for rising edge (went from false -> true)
+			if (payload_msg.command && !_last_payload_command) {
+				if (_gripper.is_valid() && !_toggle_active) {
+
+					_toggle_active = true;
+					_toggle_start_time = now;
+
+					// If currently grabbed, open it. If open, grab it.
+					if (_gripper.grabbed() || _gripper.grabbing()) {
+						_toggle_revert_to_grab = true; // Remember to grab again after 1.5s
+						_gripper.release();
+						PX4_INFO("Payload trigger: Releasing for 1.5s");
+					} else {
+						_toggle_revert_to_grab = false; // Remember to release again after 1.5s
+						_gripper.grab();
+						PX4_INFO("Payload trigger: Grabbing for 1.5s");
+					}
+				}
+			}
+			_last_payload_command = payload_msg.command; // Save state for next loop
+		}
+	}
+
+	if (_toggle_active) {
+		// time_literals namespace allows using _ms, _s suffix
+		if (now - _toggle_start_time >= 1500_ms) {
+			_toggle_active = false;
+
+			// Revert back to the original state
+			if (_toggle_revert_to_grab) {
+				_gripper.grab();
+				PX4_INFO("Toggle complete: Reverting to GRABBED");
+			} else {
+				_gripper.release();
+				PX4_INFO("Toggle complete: Reverting to RELEASED");
+			}
+		}
+	}
+
+
 	gripper_update(now);
 
 	if (_vehicle_command_sub.update(&vcmd)) {
