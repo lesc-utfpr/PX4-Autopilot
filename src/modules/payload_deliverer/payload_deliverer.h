@@ -158,7 +158,7 @@ private:
 	// Subscription
 	uORB::SubscriptionCallbackWorkItem _vehicle_command_sub{this, ORB_ID(vehicle_command)};
 	uORB::SubscriptionInterval         _parameter_update_sub{ORB_ID(parameter_update), 1_s}; // subscription limited to 1 Hz updates
-	uORB::Subscription 		   _payload_sub{ORB_ID(payload)};
+	uORB::Subscription 		   _payload_sub{ORB_ID(hook_cmd)};
 
 	// Publications
 	uORB::Publication<vehicle_command_ack_s> _vehicle_command_ack_pub{ORB_ID(vehicle_command_ack)};
