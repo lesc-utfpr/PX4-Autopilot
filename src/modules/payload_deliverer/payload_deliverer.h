@@ -49,6 +49,7 @@
 #include <uORB/topics/vehicle_command.h>
 #include <uORB/topics/vehicle_command_ack.h>
 #include <uORB/topics/parameter_update.h>
+#include <uORB/topics/payload.h>
 
 using namespace time_literals;
 
@@ -149,9 +150,15 @@ private:
 	uint8_t _cur_vcmd_target_system{0};
 	uint8_t _cur_vcmd_target_component{0};
 
+	bool _last_payload_command{false};     // Tracks the previous state of the topic's command flag
+	bool _toggle_active{false};            // True when we are currently in the 1.5s wait period
+	hrt_abstime _toggle_start_time{0};     // Timestamp of when the toggle started
+	bool _toggle_revert_to_grab{false};    // Remembers what state to revert back to after 1.5s
+
 	// Subscription
 	uORB::SubscriptionCallbackWorkItem _vehicle_command_sub{this, ORB_ID(vehicle_command)};
 	uORB::SubscriptionInterval         _parameter_update_sub{ORB_ID(parameter_update), 1_s}; // subscription limited to 1 Hz updates
+	uORB::Subscription 		   _payload_sub{ORB_ID(hook_cmd)};
 
 	// Publications
 	uORB::Publication<vehicle_command_ack_s> _vehicle_command_ack_pub{ORB_ID(vehicle_command_ack)};
@@ -162,4 +169,5 @@ private:
 		(ParamInt<px4::params::PD_GRIPPER_TYPE>)	_param_gripper_type,
 		(ParamBool<px4::params::PD_GRIPPER_EN>)		_param_gripper_enable
 	)
+
 };
