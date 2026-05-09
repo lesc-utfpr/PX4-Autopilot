@@ -1,0 +1,5 @@
+menuconfig MODULES_SIMULATION_SENSOR_RANGEFINDER_SIM
+	bool "sensor_rangefinder_sim"
+	default n
+	---help---
+		Enable support for sensor_rangefinder_sim
