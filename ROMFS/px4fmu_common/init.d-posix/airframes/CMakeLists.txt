@@ -90,7 +90,7 @@ px4_add_romfs_files(
 	6969_gz_piazinho
 	6970_gz_piazinho_mono_cam
 	6971_gz_piazinho_mid360_cam
-	6972_gz_piazinho_flow_cam
+	6972_gz_piazinho_range_cam
 
 	8011_gz_omnicopter
 
