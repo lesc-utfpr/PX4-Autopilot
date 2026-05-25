@@ -13,13 +13,14 @@ PX4_SIM_MODEL=${PX4_SIM_MODEL:=piazinho_mid360_cam}
 param set-default SENS_EN_GPSSIM 0
 param set-default SYS_HAS_GPS 0
 param set-default SYS_HAS_BARO 0
-param set-default EKF2_EV_CTRL 15
+param set-default EKF2_EV_CTRL 11
 param set-default EKF2_GPS_CTRL 0
 param set-default EKF2_RNG_CTRL 0
-param set-default EKF2_EV_DELAY 5
+param set-default EKF2_EV_DELAY 0
 param set-default EKF2_DELAY_MAX 300
 param set-default EKF2_BARO_CTRL 0
 param set-default EKF2_AGP_CTRL 0
+param set-default EKF2_HGT_REF 3
 
 
 
