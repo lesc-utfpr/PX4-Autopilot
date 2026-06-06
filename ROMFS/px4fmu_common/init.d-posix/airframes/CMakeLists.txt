@@ -92,6 +92,11 @@ px4_add_romfs_files(
 	6971_gz_piazinho_mid360_cam
 	6972_gz_piazinho_range_cam
 
+	6973_gz_coisaruim
+	6974_gz_coisaruim_mono_cam
+	6975_gz_coisaruim_mid360_cam
+	6976_gz_coisaruim_range_cam
+
 	8011_gz_omnicopter
 
 	10015_gazebo-classic_iris

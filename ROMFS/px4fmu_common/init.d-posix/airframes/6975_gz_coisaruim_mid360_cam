@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# @name Gazebo CoisaRuim Mid360 Cam
+#
+# @type Quadrotor
+#
+
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=coisaruim_mid360_cam}
+
+. ${R}etc/init.d-posix/airframes/6973_gz_coisaruim
+
+param set-default SYS_AUTOSTART 6975
+param set-default SENS_EN_GPSSIM 0
+param set-default SYS_HAS_GPS 0
+param set-default EKF2_EV_CTRL 15
+

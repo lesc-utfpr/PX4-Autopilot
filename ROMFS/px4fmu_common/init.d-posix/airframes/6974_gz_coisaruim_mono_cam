@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# @name Gazebo CoisaRuim mono cam
+#
+# @type Quadrotor
+#
+
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=coisaruim_mono_cam}
+
+. ${R}etc/init.d-posix/airframes/6973_gz_coisaruim
+
+param set-default SYS_AUTOSTART 6974
