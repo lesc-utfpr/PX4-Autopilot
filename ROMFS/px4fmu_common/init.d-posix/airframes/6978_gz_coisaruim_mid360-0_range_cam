@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# @name Gazebo CoisaRuim Mid360 Range Cam
+#
+# @type Quadrotor
+#
+
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=coisaruim_mid360-0_range_cam}
+
+. ${R}etc/init.d-posix/airframes/6973_gz_coisaruim
+
+param set-default SYS_AUTOSTART 6978
+param set-default SYS_HAS_NUM_DIST 1
+
+param set-default EKF2_OF_CTRL 1
+param set-default SENS_FLOW_MINHGT 0.08
+param set-default SENS_FLOW_MAXHGT 8.0
+
+param set-default SENS_EN_GPSSIM 0 #0
+param set-default SYS_HAS_GPS 0 #0
+param set-default SYS_HAS_BARO 0
+param set-default EKF2_EV_CTRL 9 # 9
+param set-default EKF2_GPS_CTRL 0 #0
+param set-default EKF2_RNG_CTRL 2
+
+param set-default EKF2_EV_DELAY 0
+param set-default EKF2_EV_POS_Z -0.11
+
+
+
+param set-default EKF2_DELAY_MAX 300
+param set-default EKF2_BARO_CTRL 0
+param set-default EKF2_AGP_CTRL 0
+param set-default EKF2_HGT_REF 2
+
+if param compare -s SYS_HAS_NUM_DIST 1
+then
+    sensor_rangefinder_sim start
+fi
+
+

@@ -96,7 +96,9 @@ px4_add_romfs_files(
 	6974_gz_coisaruim_mono_cam
 	6975_gz_coisaruim_mid360_cam
 	6976_gz_coisaruim_range_cam
-	6977_gz_coisaruim_mid360_range_cam
+	6977_gz_coisaruim_mid360-45_range_cam
+	6978_gz_coisaruim_mid360-0_range_cam
+
 
 	8011_gz_omnicopter
 
