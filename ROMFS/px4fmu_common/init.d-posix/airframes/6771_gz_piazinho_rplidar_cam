@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# @name Gazebo Piazinho mono cam
+#
+# @type Quadrotor
+#
+
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=piazinho_mono_cam}
+
+. ${R}etc/init.d-posix/airframes/6767_gz_piazinho
+
+param set-default SYS_AUTOSTART 6972
+param set-default SYS_HAS_NUM_DIST 1
+
+param set-default EKF2_OF_CTRL 1
+param set-default SENS_FLOW_MINHGT 0.08
+param set-default SENS_FLOW_MAXHGT 8.0
+
+param set-default EKF2_RNG_CTRL 1
+param set-default EKF2_HGT_REF 2         # 2 = range sensor
+param set-default EKF2_MIN_RNG 0.01
+
+param set-default EKF2_RNG_POS_X -0.05
+param set-default EKF2_RNG_POS_Z -0.08
+
+param set-default SENS_EN_GPSSIM 1
+param set-default SYS_HAS_GPS 1
+
+if param compare -s SYS_HAS_NUM_DIST 1
+then
+    sensor_rangefinder_sim start
+fi
+
+

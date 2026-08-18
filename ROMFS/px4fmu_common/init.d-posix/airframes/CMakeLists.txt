@@ -87,10 +87,11 @@ px4_add_romfs_files(
 	6011_gazebo-classic_typhoon_h480
 	6011_gazebo-classic_typhoon_h480.post
 
-	6969_gz_piazinho
-	6970_gz_piazinho_mono_cam
-	6971_gz_piazinho_mid360_cam
-	6972_gz_piazinho_range_cam
+	6767_gz_piazinho
+	6768_gz_piazinho_mono_cam
+	6769_gz_piazinho_mid360_cam
+	6770_gz_piazinho_range_cam
+	6771_gz_piazinho_rplidar_cam
 
 	6973_gz_coisaruim
 	6974_gz_coisaruim_mono_cam
