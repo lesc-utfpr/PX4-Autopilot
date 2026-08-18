@@ -1,11 +1,11 @@
 #!/bin/sh
 #
-# @name Gazebo Piazinho mono cam
+# @name Gazebo Piazinho rplidar cam
 #
 # @type Quadrotor
 #
 
-PX4_SIM_MODEL=${PX4_SIM_MODEL:=piazinho_mono_cam}
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=piazinho_rplidar_cam}
 
 . ${R}etc/init.d-posix/airframes/6767_gz_piazinho
 
