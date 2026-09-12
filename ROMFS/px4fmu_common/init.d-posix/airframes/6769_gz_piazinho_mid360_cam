@@ -7,9 +7,9 @@
 
 PX4_SIM_MODEL=${PX4_SIM_MODEL:=piazinho_mid360_cam}
 
-. ${R}etc/init.d-posix/airframes/6969_gz_piazinho
+. ${R}etc/init.d-posix/airframes/6767_gz_piazinho
 
-
+param set-default SYS_AUTOSTART 6769
 param set-default SENS_EN_GPSSIM 0
 param set-default SYS_HAS_GPS 0
 param set-default SYS_HAS_BARO 0

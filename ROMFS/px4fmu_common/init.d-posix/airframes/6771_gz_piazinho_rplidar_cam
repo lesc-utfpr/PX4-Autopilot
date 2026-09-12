@@ -9,7 +9,7 @@ PX4_SIM_MODEL=${PX4_SIM_MODEL:=piazinho_rplidar_cam}
 
 . ${R}etc/init.d-posix/airframes/6767_gz_piazinho
 
-param set-default SYS_AUTOSTART 6972
+param set-default SYS_AUTOSTART 6771
 param set-default SYS_HAS_NUM_DIST 1
 
 param set-default EKF2_OF_CTRL 1
