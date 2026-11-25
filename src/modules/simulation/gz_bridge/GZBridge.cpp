@@ -225,6 +225,14 @@ int GZBridge::init()
 		return PX4_ERROR;
 	}
 
+	// Distance Sensor (1D LiDAR): optional
+	std::string lidar_sensor = "/world/" + _world_name + "/model/" + _model_name +
+				   "/link/lidar_sensor_link/sensor/lidar/scan";
+
+	if (!_node.Subscribe(lidar_sensor, &GZBridge::laserScantoLidarSensorCallback, this)) {
+		PX4_WARN("failed to subscribe to %s", lidar_sensor.c_str());
+	}
+
 	if (!_mixing_interface_esc.init(_model_name)) {
 		PX4_ERR("failed to init ESC output");
 		return PX4_ERROR;
@@ -757,6 +765,45 @@ void GZBridge::rotateQuaternion(gz::math::Quaterniond &q_FRD_to_NED, const gz::m
 
 	// final rotation composition
 	q_FRD_to_NED = q_ENU_to_NED * q_FLU_to_ENU * q_FLU_to_FRD.Inverse();
+}
+
+void GZBridge::laserScantoLidarSensorCallback(const gz::msgs::LaserScan &scan)
+{
+	if (hrt_absolute_time() == 0) {
+		return;
+	}
+
+	distance_sensor_s distance_sensor{};
+	distance_sensor.timestamp = hrt_absolute_time();
+	device::Device::DeviceId id;
+	id.devid_s.bus_type = device::Device::DeviceBusType::DeviceBusType_SIMULATION;
+	id.devid_s.bus = 0;
+	id.devid_s.address = 0;
+	id.devid_s.devtype = DRV_DIST_DEVTYPE_SIM;
+	distance_sensor.device_id = id.devid;
+	distance_sensor.min_distance = static_cast<float>(scan.range_min());
+	distance_sensor.max_distance = static_cast<float>(scan.range_max());
+	distance_sensor.variance = 0.0004f;
+	distance_sensor.type = distance_sensor_s::MAV_DISTANCE_SENSOR_LASER;
+	distance_sensor.orientation = distance_sensor_s::ROTATION_DOWNWARD_FACING;
+
+	if (scan.ranges_size() > 0) {
+		const float dist = static_cast<float>(scan.ranges(0));
+
+		if (PX4_ISFINITE(dist) && dist >= distance_sensor.min_distance && dist <= distance_sensor.max_distance) {
+			distance_sensor.current_distance = dist;
+			distance_sensor.signal_quality = 100;
+		} else {
+			// Out of range (standard PX4 / Lightware behavior: max + 0.1m, quality 0)
+			distance_sensor.current_distance = distance_sensor.max_distance + 0.1f;
+			distance_sensor.signal_quality = 0;
+		}
+	} else {
+		distance_sensor.current_distance = distance_sensor.max_distance + 0.1f;
+		distance_sensor.signal_quality = 0;
+	}
+
+	_distance_sensor_pub.publish(distance_sensor);
 }
 
 void GZBridge::Run()

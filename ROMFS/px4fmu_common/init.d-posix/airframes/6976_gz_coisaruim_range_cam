@@ -26,9 +26,10 @@ param set-default EKF2_RNG_POS_Z -0.08
 param set-default SENS_EN_GPSSIM 1
 param set-default SYS_HAS_GPS 1
 
-if param compare -s SYS_HAS_NUM_DIST 1
-then
-    sensor_rangefinder_sim start
-fi
+# Gazebo 1D lidar is bridged directly via GZBridge
+# if param compare -s SYS_HAS_NUM_DIST 1
+# then
+#     sensor_rangefinder_sim start
+# fi
 
 
